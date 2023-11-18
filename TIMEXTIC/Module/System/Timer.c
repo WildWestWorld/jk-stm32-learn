@@ -19,6 +19,7 @@ void Timer_Init(void){
 	
 	//配置默认时钟
 	//TIM_InternalClockConfig(TIM2);
+		
 	//配置ETR引脚外部时钟模式2
 	//TIM_ETRClockMode2Config(TIM2,
 	//TIM_ExtTRGPSC_OFF不分频
@@ -67,6 +68,7 @@ void Timer_Init(void){
 	
 	//启动定时器
 	TIM_Cmd(TIM2,ENABLE);
+	
 	
 }
 
