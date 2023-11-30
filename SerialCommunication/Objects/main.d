@@ -30,5 +30,5 @@
 .\objects\main.o: .\Library\misc.h
 .\objects\main.o: .\Module\System\Delay.h
 .\objects\main.o: .\Module\Hardware\OLED.h
-.\objects\main.o: .\Module\System\MyDMA.h
-.\objects\main.o: .\Module\Hardware\AD.h
+.\objects\main.o: .\Module\Hardware\Serial.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h

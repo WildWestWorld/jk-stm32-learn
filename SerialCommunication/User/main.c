@@ -1,30 +1,35 @@
 #include "stm32f10x.h"                  // Device header
 #include "Delay.h"
 #include "OLED.h"
-#include "MyDMA.h"
-#include "AD.h"
+#include "Serial.h"
 
 
 int main(void)
 {
 	OLED_Init();
-	AD_DMA_Init();
+	Serial_Init();
 	
-	OLED_ShowString(1,1,"AD0:");
-  OLED_ShowString(2,1,"AD1:");
-	OLED_ShowString(3,1,"AD2:");
-	OLED_ShowString(4,1,"AD3:");
-
-
+	//Serial_SendByte(0x41);
+	
+	//uint8_t MyArray[] ={0x42,0x43,0x44,0x45};
+	//Serial_SendArray(MyArray,4);
+	//Serial_SendString("HelloWorld!");
+	
+		//Serial_SendString("HelloWorld!");
+		//Serial_SendNumber(12345,5);
+		
+	//	printf("Num=%d\r\n",666);
+	
+	/*//多串口使用sprintf	
+	char String[100];
+	//使用sprintf 答应到string 也就是string是个容器
+	sprintf(String,"Num=%d\r\n",666);
+	Serial_SendString(String);*/
+	
+	Serial_Printf("Num=%d\r\n",666);
+	
 	while(1){	
 		
-
-	// AD_DMA_GetValue();
-		
-		OLED_ShowNum(1,5,AD_Value[0],4);
-		OLED_ShowNum(2,5,AD_Value[1],4);
-		OLED_ShowNum(3,5,AD_Value[2],4);
-		OLED_ShowNum(4,5,AD_Value[3],4);
 
 		
 	
