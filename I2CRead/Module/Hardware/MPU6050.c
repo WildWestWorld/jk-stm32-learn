@@ -2,6 +2,8 @@
 #include "MyI2C.h"
 #include "MPU6050_Reg.h"
 
+//0xD0 是默认的 I2C从机地址 就是110 1000 =>0x68 
+//但因为我们还需要一个读写位 所以0x68 得 左移一位 也就是 0xD0
 #define MPU6050_ADDRESS 0xD0
 
 //指定地址写
@@ -28,6 +30,9 @@ void MPU6050_WriteReg(uint8_t RegAddress,uint8_t Data){
 
 //指定地址读
 uint8_t MPU6050_ReadReg(uint8_t RegAddress){
+	
+	//发送从机地址，指定寄存器 通知寄存器存放数据到I2C从机 ->读取I2C从机的数据
+	
 	//接收数据
 	uint8_t Data;
 	
@@ -38,21 +43,23 @@ uint8_t MPU6050_ReadReg(uint8_t RegAddress){
 	//接收应答位
 	MyI2C_ReceiveAck();
 	
-	//指定寄存地址
+	//指定寄存地址 发送信号到寄存器地址，寄存器地址会把当前的数据 放到从机地址里面
 	MyI2C_SendByte(RegAddress);
 	//接收应答位
 	MyI2C_ReceiveAck();
 	
 	
+	
 	MyI2C_Start();
 	//给从机地址 发送读取信号
+	//获取寄存器地址存放的数据
 	MyI2C_SendByte(MPU6050_ADDRESS|0x01);
 	//接收应答位
 	MyI2C_ReceiveAck();
 		
 	//接收数据
 	Data =MyI2C_ReceiveByte();
-	//发送Ack
+	//发送Ack1停止接收
 	MyI2C_SendAck(1);
 			
 	MyI2C_Stop();
@@ -115,3 +122,9 @@ void MPU6050_GetData(int16_t *AccX, int16_t *AccY, int16_t *AccZ,
 	DataL = MPU6050_ReadReg(MPU6050_GYRO_ZOUT_L);		//读取陀螺仪Z轴的低8位数据
 	*GyroZ = (DataH << 8) | DataL;						//数据拼接，通过输出参数返回
 };
+
+
+
+
+
+
